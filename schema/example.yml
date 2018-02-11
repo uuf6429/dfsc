@@ -1,0 +1,24 @@
+variables:
+  MYSQL_USER: user
+  MYSQL_PASSWORD: pass
+  MYSQL_ROOT_PASSWORD: example
+persistence: remove-volumes
+containers:
+  wp:
+    image: wordpress
+    wait: "http://$CONTAINER_HOST"
+    docker-compose:
+      restart: always
+      ports:
+        - 8000:80
+      environment:
+        WORDPRESS_DB_PASSWORD: $MYSQL_ROOT_PASSWORD
+  db:
+    image: percona:5.7
+    wait: "mysql://$MYSQL_USER:$MYSQL_PASSWORD@$CONTAINER_HOST"
+    docker-compose:
+      restart: always
+      ports:
+        - 8000:80
+script:
+  - "@behat run"

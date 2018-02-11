@@ -1,0 +1,80 @@
+{
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "properties": {
+    "variables": {
+      "$id": "/properties/variables",
+      "type": "object",
+      "properties": {},
+      "additionalProperties": {
+        "type": [
+          "string",
+          "number",
+          "integer",
+          "boolean",
+          "null"
+        ]
+      }
+    },
+    "persistence": {
+      "type": "string",
+      "pattern": "^ignore|remove-volumes|data-volume$"
+    },
+    "containers": {
+      "$id": "/properties/containers",
+      "type": "object",
+      "properties": {},
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string"
+          },
+          "persistence": {
+            "type": "string",
+            "pattern": "^ignore|remove-volumes|data-volume$"
+          },
+          "wait": {
+            "type": "string"
+          },
+          "docker-compose": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "script": {
+            "$id": "/properties/script",
+            "type": [
+              "array",
+              "string"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "additionalItems": true
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "image"
+        ]
+      }
+    },
+    "script": {
+      "$id": "/properties/script",
+      "type": [
+        "array",
+        "string"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "additionalItems": true
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "containers"
+  ]
+}

@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php
+
+if (!ini_get('date.timezone')) {
+    ini_set('date.timezone', 'UTC');
+}
+
+set_error_handler(function ($severity, $message, $file = null, $line = null) {
+    if ($severity & error_reporting()) {
+        throw new ErrorException($message, 0, $severity, $file, $line);
+    }
+});
+
+foreach ([__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php'] as $file) {
+    if (file_exists($file)) {
+        define('DFSC_AUTOLOAD', $file);
+        unset($file);
+        break;
+    }
+}
+
+if (!defined('DFSC_AUTOLOAD')) {
+    fwrite(STDERR, "Composer autoloader not found.\n");
+    exit(1);
+}
+
+/** @noinspection PhpIncludeInspection */
+require_once DFSC_AUTOLOAD;
+
+// TODO use the git thingy to replace the version ro something..
+$app = new \uuf6429\DFSC\Application('dfsc', 'UNKNOWN');
+$app->run();
