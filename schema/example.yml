@@ -4,6 +4,18 @@ variables:
   MYSQL_ROOT_PASSWORD: example
 persistence: remove-volumes
 containers:
+  se:
+    image: "selenium/standalone-${SELENIUM_IMAGE-chrome}"
+    wait: "http://$CONTAINER_HOST:4444"
+    docker-compose:
+      ports:
+        - 4444:4444
+        - 5900:5900
+      depends_on:
+        - wordpress
+      volumes:
+        - /dev/shm:/dev/shm
+        - ../output:/output
   wp:
     image: wordpress
     wait: "http://$CONTAINER_HOST"
@@ -21,4 +33,4 @@ containers:
       ports:
         - 8000:80
 script:
-  - "@behat run"
+  - "@behat"

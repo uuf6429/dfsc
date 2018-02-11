@@ -96,7 +96,7 @@ class SchemaTest extends TestCase
                 ],
                 '$expectedSuccess' => false,
                 '$expectedErrors' => [
-                    'The string must match the pattern ^ignore|remove-volumes|data-volume$.'
+                    'The string must match the pattern ^ignore|remove-volumes|data-container.'
                 ]
             ],
             'invalid root property' => [

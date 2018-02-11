@@ -77,6 +77,7 @@ class Config
                 },
                 $validator->errors()
             );
+            // TODO apply parameter substitution and log any errors
         } catch (\Exception $ex) {
             $this->errors = [$ex->getMessage()];
         }

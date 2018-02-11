@@ -20,7 +20,7 @@
     },
     "persistence": {
       "type": "string",
-      "pattern": "^ignore|remove-volumes|data-volume$"
+      "pattern": "^ignore|remove-volumes|data-container"
     },
     "containers": {
       "$id": "/properties/containers",
@@ -34,7 +34,7 @@
           },
           "persistence": {
             "type": "string",
-            "pattern": "^ignore|remove-volumes|data-volume$"
+            "pattern": "^ignore|remove-volumes|data-container"
           },
           "wait": {
             "type": "string"
